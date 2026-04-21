@@ -1,20 +1,24 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Project type: Personal-use TTRPG character sheet webapp
+  Tech stack: Next.js, React, TypeScript, Tailwind CSS
+  Routing: Next.js App Router
+  Persistence: Browser localStorage with JSON export/import
+  Deployment target: Local development first; optional Docker deployment later
+  Authentication: None
+  Database: None
+  Scope: Single-user, single ruleset MVP
+  Priorities: Simplicity, fast delivery in one week, clear maintainable structure
+  Code organization: Keep rules data separate from UI and keep derived stat calculations in pure utility functions
+  Style: Prefer simple components and minimal dependencies
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Keep MVP scope narrow and realistic for a one-week build
+    - Exclude auth, multiplayer, external database, and public hosting unless explicitly requested
+  design:
+    - Favor local-first browser persistence over server-side storage
+    - Keep calculation logic separate from presentation components
+  tasks:
+    - Break work into small, sequential tasks that can be completed during a one-week project
