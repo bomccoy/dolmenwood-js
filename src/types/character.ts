@@ -19,4 +19,6 @@ export interface Character {
     charisma: number;
   };
   inventory: InventoryItem[];
+  currentHp: number;
+  maxHp: number;
 }

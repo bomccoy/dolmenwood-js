@@ -6,6 +6,8 @@ import AbilityScores from "@/components/AbilityScores";
 import SpellSlots from "@/components/SpellSlots";
 import InventoryList from "@/components/InventoryList";
 import ThemeToggle from "@/components/ThemeToggle";
+import SavingThrows from "@/components/SavingThrows";
+import KindredTraits from "@/components/KindredTraits";
 import { loadCharacter, saveCharacter, exportJson, importJson } from "@/lib/storage";
 import type { Character } from "@/types/character";
 
@@ -23,6 +25,8 @@ const DEFAULT_CHARACTER: Character = {
     charisma: 10,
   },
   inventory: [],
+  currentHp: 0,
+  maxHp: 0,
 };
 
 export default function Home() {
@@ -32,7 +36,7 @@ export default function Home() {
 
   useEffect(() => {
     const saved = loadCharacter();
-    if (saved) setCharacter(saved);
+    if (saved) setCharacter({ ...saved, currentHp: saved.currentHp ?? 0, maxHp: saved.maxHp ?? 0 });
     hydrated.current = true;
   }, []);
 
@@ -80,15 +84,27 @@ export default function Home() {
 
       <main className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
-          <CharacterIdentity character={character} onChange={update} />
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
           <AbilityScores
             baseStats={character.baseStats}
             onChange={(baseStats) => update({ baseStats })}
           />
         </div>
+
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
+          <CharacterIdentity character={character} onChange={update} />
+        </div>
+
+        {character.class && (
+          <div className="md:col-span-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
+            <SavingThrows className={character.class} level={character.level} />
+          </div>
+        )}
+
+        {character.kindred && (
+          <div className="md:col-span-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
+            <KindredTraits kindred={character.kindred} />
+          </div>
+        )}
 
         {character.class && (
           <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
