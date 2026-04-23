@@ -8,6 +8,7 @@ import InventoryList from "@/components/InventoryList";
 import ThemeToggle from "@/components/ThemeToggle";
 import SavingThrows from "@/components/SavingThrows";
 import KindredTraits from "@/components/KindredTraits";
+import ClassAbilities from "@/components/ClassAbilities";
 import { loadCharacter, saveCharacter, exportJson, importJson } from "@/lib/storage";
 import type { Character } from "@/types/character";
 
@@ -101,8 +102,14 @@ export default function Home() {
         )}
 
         {character.kindred && (
-          <div className="md:col-span-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
+          <div className={`bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4 ${character.class ? "" : "md:col-span-2"}`}>
             <KindredTraits kindred={character.kindred} />
+          </div>
+        )}
+
+        {character.class && (
+          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded p-4">
+            <ClassAbilities className={character.class} />
           </div>
         )}
 
